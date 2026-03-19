@@ -1,0 +1,554 @@
+{
+    "credits": [
+        {
+            "name": "TheOnlyVolume", 
+            "mii": "volume",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,55],
+            "miiScale": 0.2,
+            "miiPoseScale": 0.17, 
+            "desc": "Creator, Director,\n Musician (Been Patient, Light It Up, Ruckus, Target Practice Inst, Sporting Inst, Boxing Match, Shimmy, Combat, One Hit, Papercut, Funkadelic, 3hot, 4hot,\nMotion Control, God Mode, Snacks, Long Awaited, Light It Up WG, Target Practice WG, Boxing Match WG, Menu Song, Pause Song),\n Charter (Basket Match, 3hot, Long Awaited),\n VA (Matt, Blue Matt, Green Shaggy, Corrupted Matt),\n Writer, Matt 1.0 Dev",
+            "categories": ["Directors", "Musicians", "Charters"]
+        },
+        {
+            "name": "Sulayre", 
+            "mii": "sul",
+            "miiOffset": [0,23],
+            "miiPoseOffset": [0,23],
+            "miiScale": 0.12,
+            "miiPoseScale": 0.12, 
+            "desc": "Director, Artist (Wiik 1 Matt, Wiik 2 Matt), Matt 1.0 Dev",
+            "categories": ["Directors", "Artists"]
+        },
+        {
+            "name": "Hayley_C0ntrol", 
+            "mii": "hayley",
+            "miiOffset": [0,20],
+            "miiPoseOffset": [0,10],
+            "miiScale": 0.24,
+            "miiPoseScale": 0.23, 
+            "desc": "Matt 1.0 Dev",
+            "categories": []
+        },
+        {
+            "name": "WhippyOrcYT", 
+            "mii": "gabe",
+            "miiOffset": [0,22],
+            "miiPoseOffset": [0,44],
+            "miiScale": 0.23,
+            "miiPoseScale": 0.32, 
+            "desc": "Matt 2.0 Dev",
+            "categories": ["Charters"]
+        },
+        {
+            "name": "SamTheSly", 
+            "mii": "sam",
+            "miiOffset": [0,8],
+            "miiPoseOffset": [-4,7],
+            "miiScale": 0.23,
+            "miiPoseScale": 0.22, 
+            "desc": "Director, Coder, Charter (Lazulii 4K), Musician (Revolution)",
+            "categories": ["Directors", "Musicians", "Charters", "Coders"]
+        },
+        {
+            "name": "Somf", 
+            "mii": "somf",
+            "miiOffset": [0,18],
+            "miiPoseOffset": [-3,26],
+            "miiScale": 0.24,
+            "miiPoseScale": 0.32, 
+            "desc": "Musician (Illusion, Heavenfall), Charter (One Hit, Illusion 4K)",
+            "categories": ["Musicians", "Charters"]
+        },
+        {
+            "name": "Rareblin", 
+            "mii": "rareblin",
+            "miiOffset": [0,26],
+            "miiPoseOffset": [1,35],
+            "miiScale": 0.22,
+            "miiPoseScale": 0.22, 
+            "desc": "Musician (Mii Funkin', Foulplay, Wiik 1, 2, & Been Patient Vocals'),\nCharter (Sussy Qussy, Mii Funkin', Foulplay)",
+            "categories": ["Musicians", "Charters"]
+        },
+        {
+            "name": "Biddle3", 
+            "mii": "biddle",
+            "miiOffset": [0,20],
+            "miiPoseOffset": [-8,5],
+            "miiScale": 0.23,
+            "miiPoseScale": 0.14, 
+            "desc": "Musician (Sporting Instrumental)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "SicOn", 
+            "mii": "sicon",
+            "miiOffset": [0,43],
+            "miiPoseOffset": [5,43],
+            "miiScale": 0.23,
+            "miiPoseScale": 0.23, 
+            "desc": "Musician (Swap!)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "Sodalite", 
+            "mii": "soda",
+            "miiOffset": [0,16],
+            "miiPoseOffset": [5,16],
+            "miiScale": 0.22,
+            "miiPoseScale": 0.19, 
+            "desc": "Musician (Sussy Qussy)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "MAJAVI", 
+            "mii": "majavi",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.4,
+            "miiPoseScale": 0.4, 
+            "desc": "Musician (Basket Match), Artist (Miiscare Guy)",
+            "categories": ["Musicians", "Artists"]
+        },
+        {
+            "name": "Leebert", 
+            "mii": "leebert",
+            "miiOffset": [0,10],
+            "miiPoseOffset": [3,7],
+            "miiScale": 0.10,
+            "miiPoseScale": 0.17, 
+            "desc": "Musician (Destiny)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "Chillspace", 
+            "mii": "chillspace",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.2,
+            "miiPoseScale": 0.2, 
+            "desc": "Musician (Mii Funkin Instrumental, Lazulii)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "Ezzy", 
+            "mii": "ezzy",
+            "miiOffset": [0,10],
+            "miiPoseOffset": [-10,15],
+            "miiScale": 0.14,
+            "miiPoseScale": 0.14, 
+            "desc": "Musician (Fired Up)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "Ahloof", 
+            "mii": "ahloof",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.18,
+            "miiPoseScale": 0.18, 
+            "desc": "Musician (Battlefield), Gameover SFX",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "PHO", 
+            "mii": "pho",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,20],
+            "miiScale": 0.15,
+            "miiPoseScale": 0.18, 
+            "desc": "Musician (Motion Control)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "Aleonepic", 
+            "mii": "aleon",
+            "miiOffset": [0,17],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.17,
+            "miiPoseScale": 0.17, 
+            "desc": "Musician (Foulplay)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "Blamejajubz", 
+            "mii": "blamejajuz",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.38,
+            "miiPoseScale": 0.38, 
+            "desc": "Musician (Miisacre)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "Sayansama", 
+            "mii": "sayansama",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.13,
+            "miiPoseScale": 0.135, 
+            "desc": "Musician (Illusion Instrumental)",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "Atomified Productions", 
+            "mii": "atomified",
+            "miiOffset": [0,18],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.11,
+            "miiPoseScale": 0.17, 
+            "desc": "Musician",
+            "categories": ["Musicians"]
+        }, 
+        {
+            "name": "ed3n_essence", 
+            "mii": "eden",
+            "miiOffset": [0,20],
+            "miiPoseOffset": [2,29],
+            "miiScale": 0.24,
+            "miiPoseScale": 0.27, 
+            "desc": "Musician",
+            "categories": ["Musicians"]
+        },
+        {
+            "name": "AnthemOverload", 
+            "mii": "anthem",
+            "miiOffset": [0,7],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.132,
+            "miiPoseScale": 0.144, 
+            "desc": "VA (Eteled)",
+            "categories": []
+        },
+        {
+            "name": "TheZoroForce240", 
+            "mii": "zoro",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [-4,7],
+            "miiScale": 0.12,
+            "miiPoseScale": 0.12, 
+            "desc": "Lead Coder, Charter (Pause Menu)",
+            "categories": ["Coders", "Charters"]
+        },
+        {
+            "name": "Teniente Mantequilla", 
+            "mii": "teni",
+            "miiOffset": [0,22],
+            "miiPoseOffset": [0,22],
+            "miiScale": 0.17,
+            "miiPoseScale": 0.17, 
+            "desc": "Coder",
+            "categories": ["Coders"]
+        },
+        {
+            "name": "RhysRJJ", 
+            "mii": "valerie",
+            "miiOffset": [0,25],
+            "miiPoseOffset": [8,18],
+            "miiScale": 0.21,
+            "miiPoseScale": 0.2, 
+            "desc": "Coder, Modcharter, Charter (Been Patient, Sporting, Boxing Match, Papercut,\nFunkadelic, 4hot, Battlefield, Motion Control, Snacks 6K, Lazulii 6K, Heavenfall,\nLong Awaited 7K, God Mode, Broadcasting, Destiny,\nLight It Up WG, Target Practice WG, Boxing Match WG),\n Animator (Green Shaggy, Red Shaggy)",
+            "categories": ["Coders", "Charters"]
+        },
+        {
+            "name": "Syridias", 
+            "mii": "syridias",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,3],
+            "miiScale": 0.22,
+            "miiPoseScale": 0.2, 
+            "desc": "Charter (Target Practice)",
+            "categories": ["Charters"]
+        },
+        {
+            "name": "WitherJPG", 
+            "mii": "default",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.12,
+            "miiPoseScale": 0.12, 
+            "desc": "Charter (Shimmy, Combat)",
+            "categories": ["Charters"]
+        },
+        {
+            "name": "Corva", 
+            "mii": "corva",
+            "miiOffset": [0,18],
+            "miiPoseOffset": [0,18],
+            "miiScale": 0.18,
+            "miiPoseScale": 0.18, 
+            "desc": "Coder, Charter (Light It Up, Ruckus, Fired Up, Revolution, Snacks)",
+            "categories": ["Coders", "Charters"]
+        },
+        {
+            "name": "Boboa", 
+            "mii": "boboa",
+            "miiOffset": [0,15],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.17,
+            "miiPoseScale": 0.16, 
+            "desc": "Artist (Playable Matt (Regular and Destiny), Corrupted Matt, WG BF and GF,\nBattlefield BF, Revolution BF and Matt, Beef Boss, Wiik 1 and 2 BF,\nImpostor Sprite, Darnell, Pico, Speaker Nene, Wiik Z BF Miss Anims, Swap! BF,\nBM WG Matt Final Phase, Icons (Peter, Spongebob, Nightmare Matt, BF, Pico, Darnell, Revolution BF, Revolution Matt, Half Corrupted Matt),\nBasket Match/Funkadelic BG,\nFreeplay Renders (Revolution, 3hot, Snacks) )",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Microcondas", 
+            "mii": "micro",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [-3,10],
+            "miiScale": 0.24,
+            "miiPoseScale": 0.26, 
+            "desc": "Artist (Crewmate Matt, Wii Fit Trainer + Icon, Beef Boss Icon, Freeplay Renders (Destiny))",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "B0nette", 
+            "mii": "bonette",
+            "miiOffset": [0,8],
+            "miiPoseOffset": [-3,7],
+            "miiScale": 0.15,
+            "miiPoseScale": 0.15, 
+            "desc": "Artist (Wiik 1 and 2 BGs, Fisticuffs BG, Foulplay BG, Lazulii BG, WG BG,\nBM WG Main BG, Battlefield Smash HUD, Wiik 1 BG Characters),\nAnimator (Miiguy), Charter",
+            "categories": ["Artists", "Charters"]
+        },
+        {
+            "name": "Krayzonex", 
+            "mii": "kray",
+            "miiOffset": [0,35],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.18,
+            "miiPoseScale": 0.13, 
+            "desc": "Artist (Wiik Z BF, Destiny BF, BM WG Flying Matt and BF, Hex, Sketchy)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "ShagLSSJ", 
+            "mii": "BLUE",
+            "miiOffset": [0,20],
+            "miiPoseOffset": [0,10],
+            "miiScale": 0.12,
+            "miiPoseScale": 0.12, 
+            "desc": "Artist (Green Shaggy, Red Shaggy), Icons (Matt, Blue Matt, Green Shaggy, Red Shaggy, Sketchy, Impostor, Nikku), VA (Red Shaggy)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "KaosKurve", 
+            "mii": "kaos",
+            "miiOffset": [0,20],
+            "miiPoseOffset": [0,20],
+            "miiScale": 0.17,
+            "miiPoseScale": 0.17, 
+            "desc": "Artist (3hot/4hot BG, Battlefield BG, Motion Control BG, Revolution BG, Miisacre Player POV BG, Mii Funkin BG, BM WG Final Phase BG, Swap! BG, Snacks BG, Been Patient BG, Fired Up Intro, Fisticuffs Channel Matt Render, Wii Channel BGs, Game UI (Health Bar, Note Skin, Judgements),\nFreeplay Renders (Fired Up, Miisacre, Battlefield, Paper Cut, Lazulii, Illusion,\nHeavenfall, Long Awaited, White Gloves Wiik))",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Kivro", 
+            "mii": "kivro",
+            "miiOffset": [0,10],
+            "miiPoseOffset": [-2,10],
+            "miiScale": 0.24,
+            "miiPoseScale": 0.24, 
+            "desc": "Artist (Blue Matt, God Matt, Most Matt Voicelines)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Atin", 
+            "mii": "atin",
+            "miiOffset": [0,17],
+            "miiPoseOffset": [-5,26],
+            "miiScale": 0.22,
+            "miiPoseScale": 0.185, 
+            "desc": "Artist (Eteled, Spongebob, Nikki)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "LordVoiid", 
+            "mii": "default",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.12,
+            "miiPoseScale": 0.12, 
+            "desc": "Artist (Wiik Z Matt)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Dane", 
+            "mii": "dane",
+            "miiOffset": [0,8],
+            "miiPoseOffset": [-7,15],
+            "miiScale": 0.18,
+            "miiPoseScale": 0.18, 
+            "desc": "Artist (Freeplay Renders (Wiik 1, Wiik 2, Wiik Z), Peter)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Trikunari", 
+            "mii": "default",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.12,
+            "miiPoseScale": 0.12, 
+            "desc": "Artist (Wiik Z BG)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Nn_haste", 
+            "mii": "haste",
+            "miiOffset": [0,18],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.24,
+            "miiPoseScale": 0.5, 
+            "desc": "Artist (Fired Up BG)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Rigby", 
+            "mii": "rigby",
+            "miiOffset": [0,8],
+            "miiPoseOffset": [0,10],
+            "miiScale": 0.5,
+            "miiPoseScale": 0.5, 
+            "desc": "Artist (Destiny BG)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "CheeseWithCake", 
+            "mii": "cheese",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.2,
+            "miiPoseScale": 0.2, 
+            "desc": "Artist (Ninja Mii and Miisacre Opponent POV BG, White Gloves Logo)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Jahwsome", 
+            "mii": "abby",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.4,
+            "miiPoseScale": 0.4, 
+            "desc": "Artist (Miisacre Icons, Mii Funkin BG Characters Animations)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Modeus", 
+            "mii": "modeus",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,2],
+            "miiScale": 0.12,
+            "miiPoseScale": 0.12, 
+            "desc": "Artist (Long Awaited Cutscenes, Hex Icon)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "VoltageXerion", 
+            "mii": "volt",
+            "miiOffset": [0,23],
+            "miiPoseOffset": [0,15],
+            "miiScale": 0.125,
+            "miiPoseScale": 0.115, 
+            "desc": "Artist (Ruckus Intro Voiceline, Shimmy Voiceline, Nightmare Matt,\nCorrupted Matt Phase 2 Transition, Animated Miisacre Guy, Freeplay Renders (Foulplay))",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Pokezzzzz", 
+            "mii": "poke",
+            "miiOffset": [0,30],
+            "miiPoseOffset": [0,30],
+            "miiScale": 0.28,
+            "miiPoseScale": 0.28, 
+            "desc": "Artist (Nikku, Wiik 1 Crowd animations,\nFreeplay Renders (Motion Control, Funkadelic))",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Xeneth", 
+            "mii": "bee",
+            "miiOffset": [0,25],
+            "miiPoseOffset": [-3,22],
+            "miiScale": 0.12,
+            "miiPoseScale": 0.19, 
+            "desc": "Artist (Sketchy)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Blackkiku", 
+            "mii": "blackkiku",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [2,7],
+            "miiScale": 0.24,
+            "miiPoseScale": 0.24, 
+            "desc": "Artist (WG Matt)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Chino", 
+            "mii": "chino",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [3,7],
+            "miiScale": 0.44,
+            "miiPoseScale": 0.44, 
+            "desc": "Artist (Cutscenes for BM, Battlefield and BM WG, Splash Land effect in BM WG, Smash Bros Death effect)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "SamuroarX2", 
+            "mii": "samuroar",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.17,
+            "miiPoseScale": 0.17, 
+            "desc": "Artist (Mii Swordfighter sprites)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "DavidGreen123", 
+            "mii": "david",
+            "miiOffset": [0,35],
+            "miiPoseOffset": [-5,30],
+            "miiScale": 0.2,
+            "miiPoseScale": 0.2, 
+            "desc": "Artist (Mii Brawler and Gunner Sprites)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Chikety", 
+            "mii": "chikety",
+            "miiOffset": [0,28],
+            "miiPoseOffset": [0,25],
+            "miiScale": 0.21,
+            "miiPoseScale": 0.21, 
+            "desc": "Artist (Promo Art, Freeplay Renders (Basket Match))",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Novais", 
+            "mii": "novais",
+            "miiOffset": [0,10],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.19,
+            "miiPoseScale": 0.19, 
+            "desc": "Artist (Freeplay Renders (Swap!, Mii Funkin, Sussy Qussy), Revolution GF, Swap! GF, Battlefield BF Gameover), Animator (BM WG Matt Final Phase)",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "Lord_380", 
+            "mii": "lord_380",
+            "miiOffset": [0,25],
+            "miiPoseOffset": [3,29],
+            "miiScale": 0.25,
+            "miiPoseScale": 0.195, 
+            "desc": "Artist (Game Icon, Freeplay Renders (4hot))",
+            "categories": ["Artists"]
+        },
+        {
+            "name": "LanaroseVA", 
+            "mii": "lanarose",
+            "miiOffset": [0,5],
+            "miiPoseOffset": [0,7],
+            "miiScale": 0.24,
+            "miiPoseScale": 0.24, 
+            "desc": "Va (Nikki)",
+            "categories": []
+        }
+    ]
+}
