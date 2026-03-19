@@ -1,4 +1,4 @@
-package backend;
+package mobile.backend;
 
 import haxe.crypto.Md5;
 import openfl.utils.Assets;
