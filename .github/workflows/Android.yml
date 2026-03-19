@@ -45,7 +45,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PsychEngine-Android
+          name: WiiFunkin-Android
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
 
