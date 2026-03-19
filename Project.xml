@@ -186,6 +186,10 @@
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+		
+	<!-- Basic Support For Kizzy -->
+	<java path="source/mobile/android/" if="android" />
+	<java path="mobile/android/" if="android" />
 
 	<assets path='art/iconOG.png' rename='icon.png' if="linux" />
 	

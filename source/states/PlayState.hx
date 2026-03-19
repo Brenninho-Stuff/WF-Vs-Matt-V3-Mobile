@@ -805,6 +805,11 @@ class PlayState extends MusicBeatState
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
 		comboGroup.cameras = [camHUD];
+		
+		#if mobile
+		 addMobileControls(false);
+	     hitbox.visible = false;
+		#end
 
 		startingSong = true;
 
@@ -1272,6 +1277,10 @@ class PlayState extends MusicBeatState
 			callOnScripts('onStartCountdown');
 			return false;
 		}
+		
+		#if mobile
+		hitbox.visible = true;
+		#end
 
 		seenCutscene = true;
 		inCutscene = false;
@@ -2780,6 +2789,10 @@ class PlayState extends MusicBeatState
 
 		FlxG.save.data.corrupted = false;
 		FlxG.save.flush();
+		
+		#if mobile
+		hitbox.visible = false;
+		#end
 		
 		timeTxt.visible = false;
 		for (num in timeBoardNumbers) num.visible = false;
