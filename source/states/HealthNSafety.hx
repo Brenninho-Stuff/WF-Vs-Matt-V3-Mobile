@@ -55,7 +55,7 @@ class HealthNSafety extends MusicBeatState
 		if(canLeave) enterAlpha += elapsed;
 		pressText.alpha = (Math.sin((enterAlpha-0.6)/0.5)/1.9) + 0.46;
 
-		var enter = FlxG.keys.justPressed.ENTER;
+		var enter = FlxG.keys.justPressed.ENTER || TouchUtil.justPressed();
 
 		var key = FlxG.keys.firstJustPressed();
 		if (key != -1) {

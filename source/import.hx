@@ -32,9 +32,13 @@ import backend.Conductor;
 import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
-import mobile.backend.Asset2File;
 import objects.Alphabet;
 import objects.BGSprite;
+
+#if mobile
+import mobile.backend.TouchUtil;
+import mobile.backend.Asset2File;
+#end
 
 import states.PlayState;
 import states.LoadingState;
