@@ -573,7 +573,6 @@ class FreeplayState extends MusicBeatState
 		}
 
 		lerpSelected = FlxMath.lerp(lerpSelected, selectedScroll-1, FlxMath.bound(elapsed * 9.6, 0, 1));
-
 		for (label in grpSongs.members)
 		{
 			label.color = label.ID == curSelected?0xffACABF8:0xffffffff;
