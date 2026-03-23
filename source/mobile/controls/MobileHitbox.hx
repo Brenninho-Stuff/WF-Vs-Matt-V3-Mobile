@@ -60,8 +60,6 @@ class MobileHitbox extends FlxMobileInputManager
 		
 		var data:Array<{color:Int, ids:Array<FlxMobileInputID>}> = [];
 		
-		var btn;
-		
 		if (PlayState.keyCount == 4) {
 			data = [
 				{color: 0xFF00FF, ids: [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.noteLEFT]},

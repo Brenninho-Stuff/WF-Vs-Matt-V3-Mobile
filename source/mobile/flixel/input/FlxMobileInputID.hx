@@ -65,8 +65,7 @@ enum abstract FlxMobileInputID(Int) from Int to Int {
 	var note9k5 = 43;
 	var note9k6 = 44;
 	var note9k7 = 45;
-	var note9k8 = 46;
-	
+	var note9k8 = 46;	
 
 	@:from
 	public static inline function fromString(s:String) {
