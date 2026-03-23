@@ -72,7 +72,7 @@ class MobileHitbox extends FlxMobileInputManager
 				{color: 0x00FF00, ids: [FlxMobileInputID.note6k2]},
 				{color: 0xFF00FF, ids: [FlxMobileInputID.note6k3]},
 				{color: 0x00FFFF, ids: [FlxMobileInputID.note6k4]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note6k5]},
+				{color: 0x00FF00, ids: [FlxMobileInputID.note6k5]}
 			];
 		} else if (PlayState.keyCount == 7) {
 			var data = [
@@ -82,7 +82,7 @@ class MobileHitbox extends FlxMobileInputManager
 				{color: 0x00FF00, ids: [FlxMobileInputID.note7kSpace]},
 				{color: 0xFF00FF, ids: [FlxMobileInputID.note7k3]},
 				{color: 0x00FFFF, ids: [FlxMobileInputID.note7k4]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note7k5]},
+				{color: 0x00FF00, ids: [FlxMobileInputID.note7k5]}
 			];
 		} else if (PlayState.keyCount == 9) {
 			var data = [
