@@ -60,6 +60,8 @@ class MobileHitbox extends FlxMobileInputManager
 		
 		var data:Array<{color:Int, ids:Array<FlxMobileInputID>}> = [];
 		
+		var btn;
+		
 		if (PlayState.keyCount == 4) {
 			data = [
 				{color: 0xFF00FF, ids: [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.noteLEFT]},
@@ -101,14 +103,15 @@ class MobileHitbox extends FlxMobileInputManager
 		}
 		
 		for (i in 0...data.length) {
+		    var btn:FlxButton = null;
 		    if (PlayState.keyCount == 4) {
-				var btn = createHint(i * buttonWidth, 0, buttonWidth, FlxG.height, data[i].color, data[i].ids);
+				btn = createHint(i * buttonWidth, 0, buttonWidth, FlxG.height, data[i].color, data[i].ids);
 			} else if (PlayState.keyCount == 6) {
-				var btn = createHint(i * buttonWidth6k, 0, buttonWidth6k, FlxG.height, data[i].color, data[i].ids);
+				btn = createHint(i * buttonWidth6k, 0, buttonWidth6k, FlxG.height, data[i].color, data[i].ids);
 			} else if (PlayState.keyCount == 7) {
-				var btn = createHint(i * buttonWidth7k, 0, buttonWidth7k, FlxG.height, data[i].color, data[i].ids);
+				btn = createHint(i * buttonWidth7k, 0, buttonWidth7k, FlxG.height, data[i].color, data[i].ids);
 			} else if (PlayState.keyCount == 9) {
-				var btn = createHint(i * buttonWidth9k, 0, buttonWidth9k, FlxG.height, data[i].color, data[i].ids);
+				btn = createHint(i * buttonWidth9k, 0, buttonWidth9k, FlxG.height, data[i].color, data[i].ids);
 			}
 			add(btn);
 			buttons.push(btn);
