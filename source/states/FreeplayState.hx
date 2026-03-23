@@ -227,6 +227,11 @@ class FreeplayState extends MusicBeatState
 		add(diffText);
 		add(scoreText);
 		
+		#if mobile
+			addVirtualPad(FULL_LEFT, A_B);
+			addVirtualPadCamera();
+		#end
+		
 		player = new MusicPlayer(this);
 		add(player);
 		
@@ -407,6 +412,7 @@ class FreeplayState extends MusicBeatState
 					}
 				}
 
+                #if desktop
 				if(FlxG.mouse.wheel != 0)
 				{
 					var lastScroll = selectedScroll;
@@ -419,6 +425,7 @@ class FreeplayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('scrollMenu'), 0.2);
 					}
 				}
+				#end
 			}
 
 			if (controls.UI_LEFT_P)
@@ -434,6 +441,7 @@ class FreeplayState extends MusicBeatState
 				mouseUpdateTimer = 0;
 			}
 
+            #if desktop
 			if (FlxG.mouse.justPressed) {
 				if (FlxG.mouse.y >= scoreBG.y && FlxG.mouse.x >= FlxG.width-scoreBG.scale.x) {
 					if (FlxG.mouse.x < FlxG.width - (scoreBG.scale.x*0.5)) {
@@ -444,6 +452,7 @@ class FreeplayState extends MusicBeatState
 					_updateSongLastDifficulty();
 				}
 			}
+			#end
 		}
 
 		if (controls.BACK)
@@ -517,7 +526,7 @@ class FreeplayState extends MusicBeatState
 				player.pauseOrResume(player.paused);
 			}
 		}
-		else if ((controls.ACCEPT || (FlxG.mouse.justPressed && FlxG.mouse.overlaps(grpSongs.members[curSelected]))) && !player.playingMusic && !songs[curSelected].locked)
+		else if ((controls.ACCEPT #if desktop || (FlxG.mouse.justPressed && FlxG.mouse.overlaps(grpSongs.members[curSelected])) #end ) && !player.playingMusic && !songs[curSelected].locked)
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
