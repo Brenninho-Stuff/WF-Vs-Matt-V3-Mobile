@@ -21,6 +21,31 @@ class MobileHitbox extends FlxMobileInputManager
 	public var buttonDown:FlxButton;
 	public var buttonUp:FlxButton;
 	public var buttonRight:FlxButton;
+	
+	public var buttonLeft6k:FlxButton;
+	public var buttonUp6k:FlxButton;
+	public var buttonRight6k:FlxButton;
+	public var buttonLeft6kTwo:FlxButton;
+	public var buttonUp6kTwo:FlxButton;
+	public var buttonRight6kTwo:FlxButton;
+	
+	public var buttonLeft7k:FlxButton;
+	public var buttonUp7k:FlxButton;
+	public var buttonRight7k:FlxButton;
+	public var buttonSpace7k:FlxButton;
+	public var buttonLeft7kTwo:FlxButton;
+	public var buttonUp7kTwo:FlxButton;
+	public var buttonRight7kTwo:FlxButton;
+	
+	public var buttonLeft9k:FlxButton;
+	public var buttonDown9k:FlxButton;
+	public var buttonUp9k:FlxButton;
+	public var buttonRight9k:FlxButton;
+	public var buttonSpace9k:FlxButton;
+	public var buttonLeft9kTwo:FlxButton;
+	public var buttonDown9kTwo:FlxButton;
+	public var buttonUp9kTwo:FlxButton;
+	public var buttonRight9kTwo:FlxButton;
 
 	private final alphaTarget:Float = 0.2;
 
