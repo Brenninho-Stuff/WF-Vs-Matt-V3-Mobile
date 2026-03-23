@@ -399,6 +399,7 @@ class FreeplayState extends MusicBeatState
 						changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
 				}
 
+               #if desktop
 				if (mouseUpdateTimer > 0) {
 					for (i => spr in grpSongs.members) {
 						if (FlxG.mouse.overlaps(spr) && curSelected != i) {
@@ -410,6 +411,7 @@ class FreeplayState extends MusicBeatState
 						}
 					}
 				}
+				#end
 
                 #if desktop
 				if(FlxG.mouse.wheel != 0)
