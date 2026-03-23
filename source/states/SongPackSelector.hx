@@ -52,6 +52,10 @@ class SongPackSelector extends MusicBeatState
 		branding.width = branding.fieldWidth;
 		branding.screenCenter(X);
 		add(branding);
+		
+		#if mobile
+		addVirtualPad(NONE, B);
+		#end
 
 		allowMouseControlWithKeys = true;
 
