@@ -58,15 +58,17 @@ class MobileHitbox extends FlxMobileInputManager
 		var buttonWidth7k:Int = Std.int(FlxG.width / 7);
 		var buttonWidth9k:Int = Std.int(FlxG.width / 9);
 		
+		var data:Array<{color:Int, ids:Array<FlxMobileInputID>}> = [];
+		
 		if (PlayState.keyCount == 4) {
-			var data = [
+			data = [
 				{color: 0xFF00FF, ids: [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.noteLEFT]},
 				{color: 0x00FFFF, ids: [FlxMobileInputID.hitboxDOWN, FlxMobileInputID.noteDOWN]},
 				{color: 0x00FF00, ids: [FlxMobileInputID.hitboxUP, FlxMobileInputID.noteUP]},
 				{color: 0xFF0000, ids: [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.noteRIGHT]}
 			];
 		} else if (PlayState.keyCount == 6) {
-			var data = [
+			data = [
 				{color: 0xFF00FF, ids: [FlxMobileInputID.note6k0]},
 				{color: 0x00FFFF, ids: [FlxMobileInputID.note6k1]},
 				{color: 0x00FF00, ids: [FlxMobileInputID.note6k2]},
@@ -75,7 +77,7 @@ class MobileHitbox extends FlxMobileInputManager
 				{color: 0x00FF00, ids: [FlxMobileInputID.note6k5]}
 			];
 		} else if (PlayState.keyCount == 7) {
-			var data = [
+			data = [
 				{color: 0xFF00FF, ids: [FlxMobileInputID.note7k0]},
 				{color: 0x00FFFF, ids: [FlxMobileInputID.note7k1]},
 				{color: 0x00FF00, ids: [FlxMobileInputID.note7k2]},
@@ -85,7 +87,7 @@ class MobileHitbox extends FlxMobileInputManager
 				{color: 0x00FF00, ids: [FlxMobileInputID.note7k5]}
 			];
 		} else if (PlayState.keyCount == 9) {
-			var data = [
+			data = [
 				{color: 0xFF00FF, ids: [FlxMobileInputID.note9k0]},
 				{color: 0x00FFFF, ids: [FlxMobileInputID.note9k1]},
 				{color: 0x00FF00, ids: [FlxMobileInputID.note9k2]},
