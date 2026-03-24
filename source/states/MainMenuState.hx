@@ -512,6 +512,8 @@ private class MainMenuOption extends FlxSprite
 	public var playedHoverSound:Bool = false;
 
 	public var playsMouseHoverSound:Bool = true;
+	
+	var lastClickTime:Float = 0; 
 
 	public function new(X:Float, Y:Float, ?hasOutline:Bool = true)
 	{
@@ -568,6 +570,25 @@ private class MainMenuOption extends FlxSprite
 			}
 	
 			if (FlxG.mouse.justPressed || Controls.instance.ACCEPT) {
+				var currentTime:Float = haxe.Timer.stamp(); 
+				
+				if (currentTime - lastClickTime <= 0.3) {
+					if (onClick != null) onClick();
+			
+					hoverTime = 0;
+					playedHoverSound = false;
+					if (hoverBG != null) {
+						hoverBG.alpha = hoverText.alpha = 0;
+					}
+					
+					lastClickTime = 0; 
+				} else {
+					lastClickTime = currentTime; 
+				}
+			}
+			
+			// Usar depois
+			/*if (FlxG.mouse.justPressed || Controls.instance.ACCEPT) {
 				if (onClick != null) onClick();
 
 				hoverTime = 0;
@@ -575,7 +596,8 @@ private class MainMenuOption extends FlxSprite
 				if (hoverBG != null) {
 					hoverBG.alpha = hoverText.alpha = 0;
 				}
-			}
+			}*/
+
 
 			hoverTime += elapsed;
 			if (hoverTime > 0.5 && hoverBG != null) {
