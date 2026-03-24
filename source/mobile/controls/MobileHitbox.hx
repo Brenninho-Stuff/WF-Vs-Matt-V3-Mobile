@@ -52,101 +52,63 @@ class MobileHitbox extends FlxMobileInputManager
 	public function new():Void
 	{
 		super();
-
-		var buttonWidth:Int = Std.int(FlxG.width / 4);
-		var buttonWidth6k:Int = Std.int(FlxG.width / 6);
-		var buttonWidth7k:Int = Std.int(FlxG.width / 7);
-		var buttonWidth9k:Int = Std.int(FlxG.width / 9);
+	
+		var keys:Int = PlayState.keyCount;
+		var btnWidth:Int = Std.int(FlxG.width / keys);
 		
 		var data:Array<{color:Int, ids:Array<FlxMobileInputID>}> = [];
 		
-		if (PlayState.keyCount == 4) {
-			data = [
-				{color: 0xFF00FF, ids: [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.noteLEFT]},
-				{color: 0x00FFFF, ids: [FlxMobileInputID.hitboxDOWN, FlxMobileInputID.noteDOWN]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.hitboxUP, FlxMobileInputID.noteUP]},
-				{color: 0xFF0000, ids: [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.noteRIGHT]}
-			];
-		} else if (PlayState.keyCount == 6) {
-			data = [
-				{color: 0xFF00FF, ids: [FlxMobileInputID.note6k0]},
-				{color: 0x00FFFF, ids: [FlxMobileInputID.note6k1]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note6k2]},
-				{color: 0xFF00FF, ids: [FlxMobileInputID.note6k3]},
-				{color: 0x00FFFF, ids: [FlxMobileInputID.note6k4]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note6k5]}
-			];
-		} else if (PlayState.keyCount == 7) {
-			data = [
-				{color: 0xFF00FF, ids: [FlxMobileInputID.note7k0]},
-				{color: 0x00FFFF, ids: [FlxMobileInputID.note7k1]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note7k2]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note7kSpace]},
-				{color: 0xFF00FF, ids: [FlxMobileInputID.note7k3]},
-				{color: 0x00FFFF, ids: [FlxMobileInputID.note7k4]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note7k5]}
-			];
-		} else if (PlayState.keyCount == 9) {
-			data = [
-				{color: 0xFF00FF, ids: [FlxMobileInputID.note9k0]},
-				{color: 0x00FFFF, ids: [FlxMobileInputID.note9k1]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note9k2]},
-				{color: 0xFF0000, ids: [FlxMobileInputID.note9k3]},
-				{color: 0xFF00FF, ids: [FlxMobileInputID.note9k4]},
-				{color: 0xFF00FF, ids: [FlxMobileInputID.note9k5]},
-				{color: 0x00FFFF, ids: [FlxMobileInputID.note9k6]},
-				{color: 0x00FF00, ids: [FlxMobileInputID.note9k7]},
-				{color: 0xFF0000, ids: [FlxMobileInputID.note9k8]}
-			];
+		switch (keys) {
+			case 4:
+				data = [
+					{color: 0xFF00FF, ids: [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.noteLEFT]},
+					{color: 0x00FFFF, ids: [FlxMobileInputID.hitboxDOWN, FlxMobileInputID.noteDOWN]},
+					{color: 0x00FF00, ids: [FlxMobileInputID.hitboxUP, FlxMobileInputID.noteUP]},
+					{color: 0xFF0000, ids: [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.noteRIGHT]}
+				];
+			case 6:
+				data = [
+					{color: 0xFF00FF, ids: [FlxMobileInputID.note6k0]}, {color: 0x00FFFF, ids: [FlxMobileInputID.note6k1]},
+					{color: 0x00FF00, ids: [FlxMobileInputID.note6k2]}, {color: 0xFF00FF, ids: [FlxMobileInputID.note6k3]},
+					{color: 0x00FFFF, ids: [FlxMobileInputID.note6k4]}, {color: 0x00FF00, ids: [FlxMobileInputID.note6k5]}
+				];
+			case 7:
+				data = [
+					{color: 0xFF00FF, ids: [FlxMobileInputID.note7k0]}, {color: 0x00FFFF, ids: [FlxMobileInputID.note7k1]},
+					{color: 0x00FF00, ids: [FlxMobileInputID.note7k2]}, {color: 0x00FF00, ids: [FlxMobileInputID.note7kSpace]},
+					{color: 0xFF00FF, ids: [FlxMobileInputID.note7k3]}, {color: 0x00FFFF, ids: [FlxMobileInputID.note7k4]},
+					{color: 0x00FF00, ids: [FlxMobileInputID.note7k5]}
+				];
+			case 9:
+				data = [
+					{color: 0xFF00FF, ids: [FlxMobileInputID.note9k0]}, {color: 0x00FFFF, ids: [FlxMobileInputID.note9k1]},
+					{color: 0x00FF00, ids: [FlxMobileInputID.note9k2]}, {color: 0xFF0000, ids: [FlxMobileInputID.note9k3]},
+					{color: 0xFF00FF, ids: [FlxMobileInputID.note9k4]}, {color: 0xFF00FF, ids: [FlxMobileInputID.note9k5]},
+					{color: 0x00FFFF, ids: [FlxMobileInputID.note9k6]}, {color: 0x00FF00, ids: [FlxMobileInputID.note9k7]},
+					{color: 0xFF0000, ids: [FlxMobileInputID.note9k8]}
+				];
 		}
 		
 		for (i in 0...data.length) {
-		    var btn:FlxButton = null;
-		    if (PlayState.keyCount == 4) {
-				btn = createHint(i * buttonWidth, 0, buttonWidth, FlxG.height, data[i].color, data[i].ids);
-			} else if (PlayState.keyCount == 6) {
-				btn = createHint(i * buttonWidth6k, 0, buttonWidth6k, FlxG.height, data[i].color, data[i].ids);
-			} else if (PlayState.keyCount == 7) {
-				btn = createHint(i * buttonWidth7k, 0, buttonWidth7k, FlxG.height, data[i].color, data[i].ids);
-			} else if (PlayState.keyCount == 9) {
-				btn = createHint(i * buttonWidth9k, 0, buttonWidth9k, FlxG.height, data[i].color, data[i].ids);
-			}
+			var btn:FlxButton = createHint(i * btnWidth, 0, btnWidth, FlxG.height, data[i].color, data[i].ids);
 			add(btn);
 			buttons.push(btn);
 		}
-
-        if (PlayState.keyCount == 4) {
-			buttonLeft  = buttons[0];
-			buttonDown  = buttons[1];
-			buttonUp    = buttons[2];
-			buttonRight = buttons[3];
-		} else if (PlayState.keyCount == 6) {
-	    	buttonLeft6k  = buttons[0];
-	        buttonUp6k    = buttons[1];
-			buttonRight6k = buttons[2];
-			buttonLeft6kTwo  = buttons[3];
-	        buttonUp6kTwo    = buttons[4];
-			buttonRight6kTwo = buttons[5];
-		} else if (PlayState.keyCount == 7) {
-	    	buttonLeft7k  = buttons[0];
-	        buttonUp7k    = buttons[1];
-			buttonRight7k = buttons[2];
-			buttonSpace7k = buttons[3];
-			buttonLeft7kTwo  = buttons[4];
-	        buttonUp7kTwo    = buttons[5];
-			buttonRight7kTwo = buttons[6];
-		} else if (PlayState.keyCount == 9) {
-    		buttonLeft9k  = buttons[0];
-			buttonDown9k  = buttons[1];
-			buttonUp9k    = buttons[2];
-			buttonRight9k = buttons[3];
-			buttonSpace9k = buttons[4];
-			buttonLeft9kTwo  = buttons[5];
-			buttonDown9kTwo  = buttons[6];
-			buttonUp9kTwo    = buttons[7];
-			buttonRight9kTwo = buttons[8];
+	
+		switch (keys) {
+			case 4:
+				buttonLeft  = buttons[0]; buttonDown  = buttons[1]; buttonUp    = buttons[2]; buttonRight = buttons[3];
+			case 6:
+				buttonLeft6k  = buttons[0]; buttonUp6k    = buttons[1]; buttonRight6k = buttons[2];
+				buttonLeft6kTwo  = buttons[3]; buttonUp6kTwo    = buttons[4]; buttonRight6kTwo = buttons[5];
+			case 7:
+				buttonLeft7k  = buttons[0]; buttonUp7k    = buttons[1]; buttonRight7k = buttons[2]; buttonSpace7k = buttons[3];
+				buttonLeft7kTwo  = buttons[4]; buttonUp7kTwo    = buttons[5]; buttonRight7kTwo = buttons[6];
+			case 9:
+				buttonLeft9k  = buttons[0]; buttonDown9k  = buttons[1]; buttonUp9k    = buttons[2]; buttonRight9k = buttons[3]; buttonSpace9k = buttons[4];
+				buttonLeft9kTwo  = buttons[5]; buttonDown9kTwo  = buttons[6]; buttonUp9kTwo    = buttons[7]; buttonRight9kTwo = buttons[8];
 		}
-
+	
 		scrollFactor.set();
 		updateTrackedButtons();
 	}
