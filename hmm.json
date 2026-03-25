@@ -84,8 +84,8 @@
       "name": "linc_luajit",
       "type": "git",
       "dir": null,
-      "ref": "master",
-      "url": "https://github.com/AlafandyPorting/linc_luajit-0.7.3"
+      "ref": "main",
+      "url": "https://github.com/DeveloperPorting-Stuff/linc_luajit"
     }
   ]
 }
