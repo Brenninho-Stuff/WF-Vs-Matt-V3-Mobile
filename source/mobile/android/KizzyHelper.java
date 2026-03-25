@@ -16,6 +16,7 @@ import android.media.session.PlaybackState;
 import android.os.Build;
 import android.util.Log;
 import org.haxe.extension.Extension;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
@@ -61,68 +62,75 @@ public class KizzyHelper extends Extension {
     public static void updateStatus(final String title, final String artist, final String imagePath) {
         if (Extension.mainActivity == null) return;
 
-        Extension.mainActivity.runOnUiThread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    if (mediaSession == null) { initialize(); return; }
-                    Context context = Extension.mainContext;
-                    Bitmap albumArt = null;
+                final Context context = Extension.mainContext;
+                Bitmap loadedArt = null;
 
-                    if (imagePath != null && !imagePath.isEmpty()) {
-                        try {
-                            File imgFile = new File(imagePath);
-                            if (imgFile.exists()) {
-                                albumArt = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                            }
-                            else {
-                                AssetManager am = context.getAssets();
-                                InputStream istr = null;
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    try {
+                        File imgFile = new File(imagePath);
+                        if (imgFile.exists()) {
+                            loadedArt = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        } else {
+                            AssetManager am = context.getAssets();
+                            InputStream istr = null;
+                            try {
+                                istr = am.open(imagePath);
+                            } catch (IOException e1) {
                                 try {
-                                    istr = am.open(imagePath);
-                                } catch (IOException e1) {
-                                    try {
-                                        istr = am.open("assets/" + imagePath);
-                                    } catch (IOException e2) {
-                                        if (imagePath.startsWith("assets/")) {
-                                            istr = am.open(imagePath.substring(7));
-                                        }
+                                    istr = am.open("assets/" + imagePath);
+                                } catch (IOException e2) {
+                                    if (imagePath.startsWith("assets/")) {
+                                        istr = am.open(imagePath.substring(7));
                                     }
                                 }
-                                if (istr != null) {
-                                    albumArt = BitmapFactory.decodeStream(istr);
-                                    istr.close();
-                                }
                             }
+                            if (istr != null) {
+                                loadedArt = BitmapFactory.decodeStream(istr);
+                                istr.close();
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Image could not be loaded: " + imagePath);
+                    }
+                }
+
+                if (loadedArt == null) {
+                    loadedArt = getAppIconAsBitmap(context);
+                }
+
+                final Bitmap finalAlbumArt = loadedArt;
+
+                Extension.mainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (mediaSession == null) { initialize(); return; }
+
+                            MediaMetadata metadata = new MediaMetadata.Builder()
+                                    .putString(MediaMetadata.METADATA_KEY_TITLE, title)
+                                    .putString(MediaMetadata.METADATA_KEY_ARTIST, artist)
+                                    .putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, finalAlbumArt)
+                                    .build();
+                            mediaSession.setMetadata(metadata);
+
+                            PlaybackState state = new PlaybackState.Builder()
+                                    .setActions(PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE | PlaybackState.ACTION_SKIP_TO_NEXT)
+                                    .setState(PlaybackState.STATE_PLAYING, 0, 1.0f)
+                                    .build();
+                            mediaSession.setPlaybackState(state);
+
+                            showNotification(title, artist, finalAlbumArt);
+
                         } catch (Exception e) {
-                            Log.e(TAG, "Image could not be loaded: " + imagePath);
+                            Log.e(TAG, "UPDATE ERROR: " + e.getMessage());
                         }
                     }
-
-                    if (albumArt == null) {
-                        albumArt = getAppIconAsBitmap(context);
-                    }
-
-                    MediaMetadata metadata = new MediaMetadata.Builder()
-                            .putString(MediaMetadata.METADATA_KEY_TITLE, title)
-                            .putString(MediaMetadata.METADATA_KEY_ARTIST, artist)
-                            .putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, albumArt)
-                            .build();
-                    mediaSession.setMetadata(metadata);
-
-                    PlaybackState state = new PlaybackState.Builder()
-                            .setActions(PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE | PlaybackState.ACTION_SKIP_TO_NEXT)
-                            .setState(PlaybackState.STATE_PLAYING, 0, 1.0f)
-                            .build();
-                    mediaSession.setPlaybackState(state);
-
-                    showNotification(title, artist, albumArt);
-
-                } catch (Exception e) {
-                    Log.e(TAG, "UPDATE ERROR: " + e.getMessage());
-                }
+                });
             }
-        });
+        }).start();
     }
 
     private static void showNotification(String title, String artist, Bitmap art) {
@@ -134,14 +142,18 @@ public class KizzyHelper extends Extension {
         } else {
             builder = new Notification.Builder(context);
         }
+        
         builder.setPriority(Notification.PRIORITY_MIN);
 
         Notification.MediaStyle style = new Notification.MediaStyle();
         style.setMediaSession(mediaSession.getSessionToken());
         style.setShowActionsInCompactView(0);
 
+        int iconResId = context.getResources().getIdentifier("icon", "drawable", context.getPackageName());
+        if (iconResId == 0) iconResId = android.R.drawable.sym_def_app_icon;
+
         builder.setVisibility(Notification.VISIBILITY_SECRET)
-                .setSmallIcon(null)
+                .setSmallIcon(iconResId)
                 .setLargeIcon(art)
                 .setContentTitle(title)
                 .setContentText(artist)

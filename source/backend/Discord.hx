@@ -2,15 +2,21 @@ package backend;
 #if DISCORD_ALLOWED
 import Sys.sleep;
 import lime.app.Application;
+#if !android
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
+#else
+import mobile.android.AndroidRPC;
+#end
 
 class DiscordClient
 {
 	public static var isInitialized:Bool = false;
 	private static final _defaultID:String = "1265120427051712582";
 	public static var clientID(default, set):String = _defaultID;
+	#if !android
 	private static var presence:DiscordRichPresence = DiscordRichPresence.create();
+	#end
 
 	public static function check()
 	{
@@ -23,16 +29,23 @@ class DiscordClient
 		if (!isInitialized && ClientPrefs.data.discordRPC)
 			initialize();
 
+        #if !android
 		Application.current.window.onClose.add(function() {
 			if(isInitialized) shutdown();
 		});
+		#end
 	}
 
 	public dynamic static function shutdown() {
+		#if android
+		AndroidRPC.shutdown();
+		#else
 		Discord.Shutdown();
+		#end
 		isInitialized = false;
 	}
 	
+	#if !android
 	private static function onReady(request:cpp.RawConstPointer<DiscordUser>):Void {
 		var requestPtr:cpp.Star<DiscordUser> = cpp.ConstPointer.fromRaw(request).ptr;
 
@@ -51,9 +64,18 @@ class DiscordClient
 	private static function onDisconnected(errorCode:Int, message:cpp.ConstCharStar):Void {
 		trace('Discord: Disconnected ($errorCode: ${cast(message, String)})');
 	}
+	#end
 
 	public static function initialize()
 	{
+	    #if android
+		if(!isInitialized) 
+		{
+			AndroidRPC.initialize();
+			trace("Discord Client (Android) initialized");
+			isInitialized = true;
+		}
+		#else
 		var discordHandlers:DiscordEventHandlers = DiscordEventHandlers.create();
 		discordHandlers.ready = cpp.Function.fromStaticFunction(onReady);
 		discordHandlers.disconnected = cpp.Function.fromStaticFunction(onDisconnected);
@@ -77,6 +99,7 @@ class DiscordClient
 			}
 		});
 		isInitialized = true;
+		#end
 	}
 
 	public static function changePresence(?details:String = 'In the Menus', ?state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
@@ -85,6 +108,9 @@ class DiscordClient
 		if (hasStartTimestamp) startTimestamp = Date.now().getTime();
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
 
+        #if android
+		AndroidRPC.update(details, state, largeImageKey);
+		#else
 		presence.details = details;
 		presence.state = state;
 		presence.largeImageKey = 'icon';
@@ -94,12 +120,14 @@ class DiscordClient
 		presence.startTimestamp = Std.int(startTimestamp / 1000);
 		presence.endTimestamp = Std.int(endTimestamp / 1000);
 		updatePresence();
+		#end
 
 		//trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
 	}
 
-	public static function updatePresence()
-		Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence));
+	public static function updatePresence() {
+        #if !android Discord.UpdatePresence(cpp.RawConstPointer.addressOf(presence)); #end
+    }
 	
 	public static function resetClientID()
 		clientID = _defaultID;

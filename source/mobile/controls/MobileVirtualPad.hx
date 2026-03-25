@@ -11,6 +11,10 @@ import openfl.display.BitmapData;
 import mobile.flixel.input.FlxMobileInputManager;
 import mobile.flixel.input.FlxMobileInputID;
 
+#if MODS_ALLOWED
+import sys.FileSystem;
+#end
+
 enum MobileDPadMode {
     UP_DOWN;
     LEFT_RIGHT;
@@ -35,7 +39,6 @@ enum MobileActionMode {
  *
  * @author StarNova (Cream.BR)
  */
-
 class MobileVirtualPad extends FlxMobileInputManager
 {
     public var buttons:Array<FlxButton> = [];
@@ -81,6 +84,8 @@ class MobileVirtualPad extends FlxMobileInputManager
                 buttonRight = add(createButton(207, FlxG.height - 243, 'right', 0xFF0000, [RIGHT, noteRIGHT]));
                 buttonDown = add(createButton(105, FlxG.height - 135, 'down', 0x00FFFF, [DOWN, noteDOWN]));
             default:
+                buttonUp = add(createButton(0, FlxG.height - 255, 'up', 0x00FF00, [UP, noteUP]));
+                buttonDown = add(createButton(0, FlxG.height - 135, 'down', 0x00FFFF, [DOWN, noteDOWN]));
         }
 
         var screenW = FlxG.width;
@@ -91,26 +96,28 @@ class MobileVirtualPad extends FlxMobileInputManager
             case A:
                 buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
             case B:
-				buttonB = add(createButton(screenW - 132, screenH - 135, 'b', 0xFFCB00, [B]));
-		    case X:
-				buttonX = add(createButton(screenW - 132, screenH - 135, 'x', 0x99062D, [X]));
+                buttonB = add(createButton(screenW - 132, screenH - 135, 'b', 0xFFCB00, [B]));
+            case X:
+                buttonX = add(createButton(screenW - 132, screenH - 135, 'x', 0x99062D, [X]));
             case A_B:
                 buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
                 buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
             case A_B_C:
-				buttonC = add(createButton(screenW - 384, screenH - 135, 'c', 0x44FF00, [C]));
-				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
-				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
+                buttonC = add(createButton(screenW - 384, screenH - 135, 'c', 0x44FF00, [C]));
+                buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
+                buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
             case CHART_EDITOR:
-				buttonV = add(createButton(screenW - 510, screenH - 255, 'v', 0x49A9B2, [V]));
-				buttonD = add(createButton(screenW - 510, screenH - 135, 'd', 0x0078FF, [D]));
-				buttonX = add(createButton(screenW - 384, screenH - 255, 'x', 0x99062D, [X]));
-				buttonC = add(createButton(screenW - 384, screenH - 135, 'c', 0x44FF00, [C]));
-				buttonY = add(createButton(screenW - 258, screenH - 255, 'y', 0x4A35B9, [Y]));
-				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
-				buttonZ = add(createButton(screenW - 132, screenH - 255, 'z', 0xCCB98E, [Z]));
-				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
+                buttonV = add(createButton(screenW - 510, screenH - 255, 'v', 0x49A9B2, [V]));
+                buttonD = add(createButton(screenW - 510, screenH - 135, 'd', 0x0078FF, [D]));
+                buttonX = add(createButton(screenW - 384, screenH - 255, 'x', 0x99062D, [X]));
+                buttonC = add(createButton(screenW - 384, screenH - 135, 'c', 0x44FF00, [C]));
+                buttonY = add(createButton(screenW - 258, screenH - 255, 'y', 0x4A35B9, [Y]));
+                buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
+                buttonZ = add(createButton(screenW - 132, screenH - 255, 'z', 0xCCB98E, [Z]));
+                buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
             default:
+                buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
+                buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
         }
 
         scrollFactor.set();
@@ -119,27 +126,43 @@ class MobileVirtualPad extends FlxMobileInputManager
 
     private function createButton(X:Float, Y:Float, Graphic:String, Color:Int, IDs:Array<FlxMobileInputID>):FlxButton
     {
-        var graphic:FlxGraphic;
-        
-        final path:String = 'assets/mobile/virtualpad/${Graphic}.png';
-        #if MODS_ALLOWED
-		final modsPath:String = Paths.modFolders('mobile/virtualpad/${Graphic}.png');
+        var graphic:FlxGraphic = null;
+        var path:String = 'assets/mobile/virtualpad/${Graphic}.png';
+        var cacheKey:String = path;
 
-		if(FileSystem.exists(modsPath))
-			graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
-		else #end if(Assets.exists(path))
-			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
-        else
-            graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData('assets/mobile/virtualpad/default.png'));
+        #if MODS_ALLOWED
+        var modsPath:String = Paths.modFolders('mobile/virtualpad/${Graphic}.png');
+        if (FileSystem.exists(modsPath)) {
+            cacheKey = modsPath;
+            graphic = FlxG.bitmap.get(cacheKey);
+            
+            if (graphic == null)
+                graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath), false, cacheKey);
+        }
+        else 
+        #end 
+        {
+            if (!Assets.exists(path)) {
+                path = 'assets/mobile/virtualpad/default.png';
+                cacheKey = path;
+            }
+            
+            graphic = FlxG.bitmap.get(cacheKey);
+            if (graphic == null)
+                graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData(path), false, cacheKey);
+        }
         
         var button = new FlxButton(X, Y, IDs);
-        button.frames = FlxTileFrames.fromGraphic(graphic, FlxPoint.get(Std.int(graphic.width / 3), graphic.height));
+
+        button.frames = FlxTileFrames.fromGraphic(graphic, FlxPoint.weak(Std.int(graphic.width / 3), graphic.height));
         
-        button.solid = button.moves = false;
+        button.solid = false;
+        button.moves = false;
         button.immovable = true;
         button.scrollFactor.set();
         button.color = Color;
         button.alpha = 0.5;
+        
         #if FLX_DEBUG button.ignoreDrawDebug = true; #end
         
         buttons.push(button);
@@ -148,8 +171,11 @@ class MobileVirtualPad extends FlxMobileInputManager
 
     override public function destroy():Void
     {
-        super.destroy();
         for (btn in buttons)
             FlxDestroyUtil.destroy(btn);
+        
+        buttons = null;
+
+        super.destroy();
     }
 }
