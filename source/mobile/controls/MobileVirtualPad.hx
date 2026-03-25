@@ -173,8 +173,6 @@ class MobileVirtualPad extends FlxMobileInputManager
     {
         for (btn in buttons)
             FlxDestroyUtil.destroy(btn);
-        
-        buttons = null;
 
         super.destroy();
     }
