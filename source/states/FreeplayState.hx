@@ -271,7 +271,7 @@ class FreeplayState extends MusicBeatState
 					case "miisacre" | "lazulii" | "snacks":
 						if (!Highscore.getWeekCompletion("3wiikZ")) song.locked = true;
 					case "illusion" | "heavenfall" | "long awaited" | "god mode" | "broadcasting":
-						if (!Highscore.getWeekCompletion("4wiikFisticuffs")) song.locked = true;
+						//if (!Highscore.getWeekCompletion("4wiikFisticuffs")) song.locked = true;
 					case "foulplay":
 						var unlocked = true;
 						for (song in ["snacks", "long-awaited", "god-mode", "broadcasting", "lazulii", "illusion", "heavenfall"]) {
@@ -299,8 +299,7 @@ class FreeplayState extends MusicBeatState
 
 	function weekIsLocked(name:String):Bool {
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
-		//return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
-		return false;
+		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
 	}
 
 	var instPlaying:Int = -1;
