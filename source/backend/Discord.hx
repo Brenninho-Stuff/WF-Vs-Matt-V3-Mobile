@@ -6,7 +6,7 @@ import lime.app.Application;
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
 #else
-import mobile.android.AndroidRPC;
+import mobile.android.DiscordAndroid;
 #end
 
 class DiscordClient
@@ -38,7 +38,7 @@ class DiscordClient
 
 	public dynamic static function shutdown() {
 		#if android
-		AndroidRPC.shutdown();
+		DiscordAndroid.shutdown();
 		#else
 		Discord.Shutdown();
 		#end
@@ -71,7 +71,7 @@ class DiscordClient
 	    #if android
 		if(!isInitialized) 
 		{
-			AndroidRPC.initialize();
+			DiscordAndroid.initialize();
 			trace("Discord Client (Android) initialized");
 			isInitialized = true;
 		}
@@ -109,7 +109,7 @@ class DiscordClient
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
 
         #if android
-		AndroidRPC.update(details, state, smallImageKey);
+		DiscordAndroid.update(details, state, smallImageKey);
 		#else
 		presence.details = details;
 		presence.state = state;
