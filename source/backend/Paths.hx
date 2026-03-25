@@ -321,8 +321,6 @@ class Paths
 		{
 			return OpenFlAssets.getText(pathDefault);
 		}
-
-		trace('DEBUG LUA: FICHEIRO NAO ENCONTRADO! Key: ' + key);
 		return null;
 	}
 
