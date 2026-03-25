@@ -34,8 +34,8 @@ class DiscordAndroid {
 				_update = JNI.createStaticMethod("network/discord/DiscordRPCHelper", "updateStatus", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 			}
 
-			var safeDetails:String = (details != null) ? details : "Unknown";
-			var safeState:String = (state != null) ? state : "Unknown";
+			var safeDetails:String = (details != null) ? details : "";
+			var safeState:String = (state != null) ? state : "";
 			var safeImage:String = (smallImageKey != null) ? smallImageKey : "";
 
 			if (_update != null) {

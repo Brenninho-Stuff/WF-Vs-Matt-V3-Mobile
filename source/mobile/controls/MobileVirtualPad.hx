@@ -83,6 +83,8 @@ class MobileVirtualPad extends FlxMobileInputManager
                 buttonLeft = add(createButton(0, FlxG.height - 243, 'left', 0xFF00FF, [LEFT, noteLEFT]));
                 buttonRight = add(createButton(207, FlxG.height - 243, 'right', 0xFF0000, [RIGHT, noteRIGHT]));
                 buttonDown = add(createButton(105, FlxG.height - 135, 'down', 0x00FFFF, [DOWN, noteDOWN]));
+            case NONE:
+                // lmao
             default:
                 buttonUp = add(createButton(0, FlxG.height - 255, 'up', 0x00FF00, [UP, noteUP]));
                 buttonDown = add(createButton(0, FlxG.height - 135, 'down', 0x00FFFF, [DOWN, noteDOWN]));
@@ -115,6 +117,8 @@ class MobileVirtualPad extends FlxMobileInputManager
                 buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
                 buttonZ = add(createButton(screenW - 132, screenH - 255, 'z', 0xCCB98E, [Z]));
                 buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
+            case NONE:
+                // lmao
             default:
                 buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
                 buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));

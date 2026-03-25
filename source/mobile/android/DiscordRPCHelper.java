@@ -46,9 +46,9 @@ public class DiscordRPCHelper extends Extension {
                 if (Build.VERSION.SDK_INT >= 33) {
                     mainActivity.requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 101);
                 }
-                Log.d(TAG, "DiscordRPCHelper Inicializado com sucesso.");
+                Log.d(TAG, "DiscordRPCHelper initialized successfully.");
             } catch (Exception e) {
-                Log.e(TAG, "Erro na inicialização: " + e.getMessage());
+                Log.e(TAG, "Error during initialization: " + e.getMessage());
             }
         });
     }
@@ -57,117 +57,160 @@ public class DiscordRPCHelper extends Extension {
      * Updates the Media status
      */
     public static void updateStatus(final String title, final String artist, final String imagePath) {
-        taskQueue.execute(() -> {
-            try {
-                if (mediaSession == null) initialize();
+        if (Extension.mainActivity == null) return;
 
-                Bitmap art = loadOptimizedBitmap(imagePath);
-                
-                boolean isPaused = (title != null && title.toLowerCase().contains("paused")) || 
-                                   (artist != null && artist.toLowerCase().contains("paused"));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Context context = Extension.mainContext;
+                Bitmap loadedArt = null;
 
-                updateMediaSession(title, artist, art, isPaused);
-                showNotification(title, artist, art);
-            } catch (Exception e) {
-                Log.e(TAG, "Falha ao atualizar status: " + e.getMessage());
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    try {
+                        File imgFile = new File(imagePath);
+                        if (imgFile.exists()) {
+                            loadedArt = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        } else {
+                            AssetManager am = context.getAssets();
+                            InputStream istr = null;
+                            try {
+                                istr = am.open(imagePath);
+                            } catch (IOException e1) {
+                                try {
+                                    istr = am.open("assets/" + imagePath);
+                                } catch (IOException e2) {
+                                    if (imagePath.startsWith("assets/")) {
+                                        istr = am.open(imagePath.substring(7));
+                                    }
+                                }
+                            }
+                            if (istr != null) {
+                                loadedArt = BitmapFactory.decodeStream(istr);
+                                istr.close();
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Image could not be loaded: " + imagePath);
+                    }
+                }
+
+                if (loadedArt == null) {
+                    loadedArt = getAppIconAsBitmap(context);
+                }
+
+                final Bitmap finalAlbumArt = loadedArt;
+
+                Extension.mainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (mediaSession == null) { initialize(); return; }
+
+                            MediaMetadata metadata = new MediaMetadata.Builder()
+                                    .putString(MediaMetadata.METADATA_KEY_TITLE, title)
+                                    .putString(MediaMetadata.METADATA_KEY_ARTIST, artist)
+                                    .putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, finalAlbumArt)
+                                    .build();
+                            mediaSession.setMetadata(metadata);
+
+                            PlaybackState state = new PlaybackState.Builder()
+                                    .setActions(PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE | PlaybackState.ACTION_SKIP_TO_NEXT)
+                                    .setState(PlaybackState.STATE_PLAYING, 0, 1.0f)
+                                    .build();
+                            mediaSession.setPlaybackState(state);
+
+                            showNotification(title, artist, finalAlbumArt);
+
+                        } catch (Exception e) {
+                            Log.e(TAG, "UPDATE ERROR: " + e.getMessage());
+                        }
+                    }
+                });
             }
-        });
-    }
-
-    private static void updateMediaSession(String title, String artist, Bitmap art, boolean isPaused) {
-        if (mediaSession == null) return;
-
-        MediaMetadata metadata = new MediaMetadata.Builder()
-                .putString(MediaMetadata.METADATA_KEY_TITLE, title)
-                .putString(MediaMetadata.METADATA_KEY_ARTIST, artist)
-                .putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, art)
-                .build();
-
-        mediaSession.setMetadata(metadata);
-
-        int state = isPaused ? PlaybackState.STATE_PAUSED : PlaybackState.STATE_PLAYING;
-        PlaybackState playbackState = new PlaybackState.Builder()
-                .setState(state, PlaybackState.PLAYBACK_POSITION_UNKNOWN, 1.0f)
-                .setActions(PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE)
-                .build();
-
-        mediaSession.setPlaybackState(playbackState);
+        }).start();
     }
 
     private static void showNotification(String title, String artist, Bitmap art) {
-        if (notificationManager == null) return;
+        Context context = Extension.mainContext;
+        Notification.Builder builder;
 
-        Notification.Builder builder = (Build.VERSION.SDK_INT >= 26) 
-            ? new Notification.Builder(mainContext, CHANNEL_ID) 
-            : new Notification.Builder(mainContext);
+        if (Build.VERSION.SDK_INT >= 26) {
+            builder = new Notification.Builder(context, CHANNEL_ID);
+        } else {
+            builder = new Notification.Builder(context);
+        }
+        
+        builder.setPriority(Notification.PRIORITY_MIN);
 
-        int iconResId = mainContext.getResources().getIdentifier("icon", "drawable", mainContext.getPackageName());
-        if (iconResId == 0) iconResId = android.R.drawable.ic_menu_compass;
+        Notification.MediaStyle style = new Notification.MediaStyle();
+        style.setMediaSession(mediaSession.getSessionToken());
+        style.setShowActionsInCompactView(0);
 
-        Notification.MediaStyle style = new Notification.MediaStyle()
-                .setMediaSession(mediaSession.getSessionToken())
-                .setShowActionsInCompactView(0);
+        int iconResId = context.getResources().getIdentifier("icon", "drawable", context.getPackageName());
+        if (iconResId == 0) iconResId = android.R.drawable.sym_def_app_icon;
 
-        builder.setSmallIcon(iconResId)
+        builder.setVisibility(Notification.VISIBILITY_SECRET)
+                .setSmallIcon(iconResId)
                 .setLargeIcon(art)
                 .setContentTitle(title)
                 .setContentText(artist)
                 .setStyle(style)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setOngoing(true);
 
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 
-    private static Bitmap loadOptimizedBitmap(String path) {
-        try {
-            Bitmap rawBitmap = null;
-            if (path == null || path.isEmpty()) return null;
-
-            File file = new File(path);
-            if (file.exists()) {
-                rawBitmap = BitmapFactory.decodeFile(path);
-            } else {
-                AssetManager assets = mainContext.getAssets();
-                String formattedPath = path.replace("assets/", "");
-                InputStream is = assets.open(formattedPath);
-                rawBitmap = BitmapFactory.decodeStream(is);
-                is.close();
-            }
-
-            if (rawBitmap != null) {
-                return Bitmap.createScaledBitmap(rawBitmap, 256, 256, true);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Erro ao processar imagem: " + path);
-        }
-        return null;
-    }
-
     private static void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= 26) {
             NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID, "Jogo em Execução", NotificationManager.IMPORTANCE_LOW);
-            channel.setSound(null, null);
-            channel.enableVibration(false);
-            notificationManager.createNotificationChannel(channel);
+                    CHANNEL_ID, "Background Service", NotificationManager.IMPORTANCE_MIN);
+            
+            channel.setDescription("Running silently");
+            channel.setShowBadge(false);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
+            
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
         }
     }
 
     public static void shutdown() {
-        mainActivity.runOnUiThread(() -> {
-            try {
-                if (mediaSession != null) {
-                    mediaSession.setActive(false);
-                    mediaSession.release();
-                    mediaSession = null;
+        if (Extension.mainActivity == null) return;
+        
+        Extension.mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (mediaSession != null) {
+                        mediaSession.setActive(false);
+                        mediaSession.release();
+                        mediaSession = null;
+                    }
+                    if (notificationManager != null) {
+                        notificationManager.cancel(NOTIFICATION_ID);
+                    }
+                    Log.d(TAG, "MediaSession closed and cleared.");
+                } catch (Exception e) {
+                    Log.e(TAG, "SHUTDOWN ERROR: " + e.getMessage());
                 }
-                if (notificationManager != null) {
-                    notificationManager.cancel(NOTIFICATION_ID);
-                }
-            } catch (Exception e) {
-                Log.e(TAG, "Erro ao encerrar: " + e.getMessage());
             }
         });
+    }
+
+    private static Bitmap getAppIconAsBitmap(Context context) {
+        try {
+            Drawable drawable = context.getPackageManager().getApplicationIcon(context.getPackageName());
+            if (drawable instanceof BitmapDrawable) {
+                return ((BitmapDrawable) drawable).getBitmap();
+            }
+            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+            return bitmap;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
