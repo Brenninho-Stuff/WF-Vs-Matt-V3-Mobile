@@ -3,64 +3,81 @@ package mobile.backend;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
+import openfl.display.BitmapData;
+import flixel.graphics.FlxGraphic;
 
 /**
  * Pause? PAUSE!!
  *
- * @author StarNova (Cream.BR)
+ * @author FalsoNova (Falso.BR)
  */
- 
 class PauseButton extends FlxSprite
 {
-    public var onClick:Void->Void;
-    private var _lastTouchId:Int = -1;
+	public var onClick:Void->Void;
 
-    public function new(x:Float = 0, y:Float = 0, ?onClick:Void->Void) 
-    {
-        var posX:Float = (x == 0) ? FlxG.width - 130 : x; 
-        var posY:Float = (y == 0) ? 25 : y;
+	private var _lastTouchId:Int = -1;
 
-        super(posX, posY);
+	public function new(x:Float = 0, y:Float = 0, ?onClick:Void->Void)
+	{
+		var posX:Float = (x == 0) ? FlxG.width - 130 : x;
+		var posY:Float = (y == 0) ? 25 : y;
 
-        #if mobile
-        loadGraphic(FlxGraphic.fromBitmapData(Assets.getBitmapData('assets/mobile/pauseButton.png')));
-        
-        antialiasing = true;
-        scrollFactor.set();
-        alpha = 0.7;
-        scale.set(0.8, 0.8);
-        updateHitbox();
+		super(posX, posY);
 
-        this.onClick = onClick;
-        #else
-        visible = false;
-        active = false;
-        #end
-    }
+		#if mobile
+		var bitmap:BitmapData = null;
+		var path:String = 'assets/mobile/pauseButton.png';
 
-    override function update(elapsed:Float) 
-    {
-        super.update(elapsed);
+		try
+		{
+			bitmap = BitmapData.fromFile(path);
+		}
 
-        #if mobile
-        if (!visible || !active || onClick == null) return;
+		if (bitmap != null)
+		{
+			loadGraphic(FlxGraphic.fromBitmapData(bitmap));
+		}
 
-        for (touch in FlxG.touches.list) {
-            if (touch.justPressed && touch.overlaps(this, camera)) {
-                onClick();
-                break;
-            }
-        }
-        #end
-    }
+		antialiasing = true;
+		scrollFactor.set();
+		alpha = 0.7;
+		scale.set(0.8, 0.8);
+		updateHitbox();
 
-    /**
-     * A function to create
-     */
-    public static function create(camera:FlxCamera, ?onClick:Void->Void):PauseButton 
-    {
-        var btn = new PauseButton(0, 0, onClick);
-        btn.cameras = [camera];
-        return btn;
-    }
+		this.onClick = onClick;
+		#else
+        trace('PauseButton only Avaliable for Mobile Targets!');
+		visible = false;
+		active = false;
+		#end
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		#if mobile
+		if (!visible || !active || onClick == null)
+			return;
+
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed && touch.overlaps(this, camera))
+			{
+				onClick();
+				break;
+			}
+		}
+		#end
+	}
+
+	/**
+	 * A function to create
+	 */
+	public static function create(camera:FlxCamera, ?onClick:Void->Void):PauseButton
+	{
+		var btn = new PauseButton(0, 0, onClick);
+		btn.cameras = [camera];
+		return btn;
+	}
 }
