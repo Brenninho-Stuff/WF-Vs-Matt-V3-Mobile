@@ -48,6 +48,8 @@ class MobileHitbox extends FlxMobileInputManager
 	public var buttonRight9kTwo:FlxButton;
 
 	private final alphaTarget:Float = 0.2;
+	
+	private var _cachedGraphics:Map<Int, flixel.graphics.FlxGraphic> = new Map();
 
 	public function new():Void
 	{
@@ -113,11 +115,21 @@ class MobileHitbox extends FlxMobileInputManager
 		updateTrackedButtons();
 	}
 
-	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int, IDs:Array<FlxMobileInputID>):FlxButton
+	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:FlxColor, IDs:Array<FlxMobileInputID>):FlxButton
 	{
 		var hint:FlxButton = new FlxButton(X, Y, IDs);
-		hint.loadGraphic(createHintGraphic(Width, Height, Color));
 		
+		// Sistema de Cache pq sim
+		var graphicKey:Int = Color + Width;
+		var bgGraphic:flixel.graphics.FlxGraphic = _cachedGraphics.get(graphicKey);
+		
+		if (bgGraphic == null) {
+			var bitmap:BitmapData = new BitmapData(Width, Height, true, (Color & 0x00FFFFFF) | 0x88000000);
+			bgGraphic = FlxG.bitmap.add(bitmap, false, "hitbox_" + graphicKey);
+			_cachedGraphics.set(graphicKey, bgGraphic);
+		}
+		
+		hint.loadGraphic(bgGraphic);
 		hint.solid = hint.moves = false;
 		hint.immovable = true;
 		hint.scrollFactor.set();
@@ -151,7 +163,7 @@ class MobileHitbox extends FlxMobileInputManager
 		return hint;
 	}
 
-	private function createHintGraphic(Width:Int, Height:Int, Color:Int):BitmapData
+	/*private function createHintGraphic(Width:Int, Height:Int, Color:Int):BitmapData
 	{
 		var shape:Shape = new Shape();
 		shape.graphics.beginFill(Color);
@@ -161,12 +173,21 @@ class MobileHitbox extends FlxMobileInputManager
 		var bitmap:BitmapData = new BitmapData(Width, Height, true, 0);
 		bitmap.draw(shape);
 		return bitmap;
-	}
+	}*/
 
 	override function destroy():Void
 	{
 		super.destroy();
 		for (btn in buttons)
 			FlxDestroyUtil.destroy(btn);
+			
+		// Cache? Talvez, mas seu cu tem mais hehehe
+		for (key in _cachedGraphics.keys()) {
+			var graphic = _cachedGraphics.get(key);
+			FlxG.bitmap.remove(graphic);
+			graphic.destroy();
+		}
+		_cachedGraphics.clear();
+		_cachedGraphics = null;
 	}
 }

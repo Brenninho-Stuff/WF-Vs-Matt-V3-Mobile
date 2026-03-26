@@ -572,7 +572,7 @@ private class MainMenuOption extends FlxSprite
 			if (FlxG.mouse.justPressed || Controls.instance.ACCEPT) {
 				var currentTime:Float = haxe.Timer.stamp(); 
 				
-				if (currentTime - lastClickTime <= 0.3) {
+				if (currentTime - lastClickTime <= 0.5) {
 					if (onClick != null) onClick();
 			
 					hoverTime = 0;
