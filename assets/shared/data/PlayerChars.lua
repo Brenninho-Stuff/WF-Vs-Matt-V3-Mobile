@@ -13,10 +13,13 @@ function onCreatePost()
     setObjectOrder('bluematt', getObjectOrder('dadGroup')+1)
 
     for i = 0, getProperty('unspawnNotes.length')-1 do
-        local noteType = getPropertyFromGroup('unspawnNotes', i, 'noteType')
-        
         for j = 0, #characterList-1 do
+<<<<<<< HEAD:assets/shared/data/PlayerChars.lua
             if noteType == getCharNoteType(characterList[j+1]) then 
+=======
+            if string.find(getPropertyFromGroup('unspawnNotes', i, 'noteType'), getCharNoteType(characterList[j+1])) 
+                and not string.find(getPropertyFromGroup('unspawnNotes', i, 'noteType'), "-duet") then 
+>>>>>>> parent of 0d331f7 (ata):assets/shared/data/heavenfall/PlayerChars.lua
                 setPropertyFromGroup('unspawnNotes', i, 'noAnimation', true)
             end
         end
@@ -96,7 +99,11 @@ local lastOpponentHitCharacter = 'hex'
 
 function opponentNoteHit(id, noteData, ntype, sus)
     for i = 0, #characterList-1 do 
+<<<<<<< HEAD:assets/shared/data/PlayerChars.lua
         if ntype == getCharNoteType(characterList[i+1]) then 
+=======
+        if string.find(ntype, getCharNoteType(characterList[i+1])) then 
+>>>>>>> parent of 0d331f7 (ata):assets/shared/data/heavenfall/PlayerChars.lua
             --runHaxeCode('game.variables["'..characterList[i+1]..'"].playAnim("'..singAnims[getSingAnim(noteData)]..'", true);')
 		    --runHaxeCode('game.variables["'..characterList[i+1]..'"].holdTimer = 0;')
             playAnim(characterList[i+1], singAnims[getMultikeyNoteIndex(noteData)+1], true)
@@ -105,10 +112,13 @@ function opponentNoteHit(id, noteData, ntype, sus)
         end
     end
 end
-
 function goodNoteHit(id, noteData, ntype, su)
     for i = 0, #characterList-1 do 
+<<<<<<< HEAD:assets/shared/data/PlayerChars.lua
         if ntype == getCharNoteType(characterList[i+1]) then 
+=======
+        if string.find(ntype, getCharNoteType(characterList[i+1])) then 
+>>>>>>> parent of 0d331f7 (ata):assets/shared/data/heavenfall/PlayerChars.lua
             playAnim(characterList[i+1], singAnims[getMultikeyNoteIndex(noteData)+1], true)
             setProperty(characterList[i+1]..'.holdTimer', 0)
             lastHitCharacter = characterList[i+1]

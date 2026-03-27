@@ -70,24 +70,24 @@ class MobileHitbox extends FlxMobileInputManager
 				];
 			case 6:
 				data = [
-					{color: 0xFF00FF, ids: [FlxMobileInputID.note6k0]}, {color: 0x00FFFF, ids: [FlxMobileInputID.note6k1]},
-					{color: 0x00FF00, ids: [FlxMobileInputID.note6k2]}, {color: 0xFF00FF, ids: [FlxMobileInputID.note6k3]},
-					{color: 0x00FFFF, ids: [FlxMobileInputID.note6k4]}, {color: 0x00FF00, ids: [FlxMobileInputID.note6k5]}
+					{color: 0xFFC24B99, ids: [FlxMobileInputID.note6k0]}, {color: 0xFF12FA05, ids: [FlxMobileInputID.note6k1]},
+					{color: 0xFFF9393F, ids: [FlxMobileInputID.note6k2]}, {color: 0xFFffff00, ids: [FlxMobileInputID.note6k3]},
+					{color: 0xFF00FFFF, ids: [FlxMobileInputID.note6k4]}, {color: 0xFF0033ff, ids: [FlxMobileInputID.note6k5]}
 				];
 			case 7:
 				data = [
-					{color: 0xFF00FF, ids: [FlxMobileInputID.note7k0]}, {color: 0x00FFFF, ids: [FlxMobileInputID.note7k1]},
-					{color: 0x00FF00, ids: [FlxMobileInputID.note7k2]}, {color: 0x00FF00, ids: [FlxMobileInputID.note7kSpace]},
-					{color: 0xFF00FF, ids: [FlxMobileInputID.note7k3]}, {color: 0x00FFFF, ids: [FlxMobileInputID.note7k4]},
-					{color: 0x00FF00, ids: [FlxMobileInputID.note7k5]}
+					{color: 0xFFC24B99, ids: [FlxMobileInputID.note7k0]}, {color: 0xFF12FA05, ids: [FlxMobileInputID.note7k1]},
+					{color: 0xFFF9393F, ids: [FlxMobileInputID.note7k2]}, {color: 0xFFcccccc, ids: [FlxMobileInputID.note7kSpace]},
+					{color: 0xFFffff00, ids: [FlxMobileInputID.note7k3]}, {color: 0xFF00FFFF, ids: [FlxMobileInputID.note7k4]},
+					{color: 0xFF0033ff, ids: [FlxMobileInputID.note7k5]}
 				];
 			case 9:
 				data = [
-					{color: 0xFF00FF, ids: [FlxMobileInputID.note9k0]}, {color: 0x00FFFF, ids: [FlxMobileInputID.note9k1]},
-					{color: 0x00FF00, ids: [FlxMobileInputID.note9k2]}, {color: 0xFF0000, ids: [FlxMobileInputID.note9k3]},
-					{color: 0xFF00FF, ids: [FlxMobileInputID.note9k4]}, {color: 0xFF00FF, ids: [FlxMobileInputID.note9k5]},
-					{color: 0x00FFFF, ids: [FlxMobileInputID.note9k6]}, {color: 0x00FF00, ids: [FlxMobileInputID.note9k7]},
-					{color: 0xFF0000, ids: [FlxMobileInputID.note9k8]}
+					{color: 0xFFC24B99, ids: [FlxMobileInputID.note9k0]}, {color: 0xFF00FFFF, ids: [FlxMobileInputID.note9k1]},
+					{color: 0xFF12FA05, ids: [FlxMobileInputID.note9k2]}, {color: 0xFFF9393F, ids: [FlxMobileInputID.note9k3]},
+					{color: 0xFFcccccc, ids: [FlxMobileInputID.note9k4]}, {color: 0xFFffff00, ids: [FlxMobileInputID.note9k5]},
+					{color: 0xFF8b4aff, ids: [FlxMobileInputID.note9k6]}, {color: 0xFFff0000, ids: [FlxMobileInputID.note9k7]},
+					{color: 0xFF0033ff, ids: [FlxMobileInputID.note9k8]}
 				];
 		}
 		
