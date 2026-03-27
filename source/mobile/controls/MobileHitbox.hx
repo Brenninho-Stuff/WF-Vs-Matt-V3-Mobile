@@ -188,6 +188,5 @@ class MobileHitbox extends FlxMobileInputManager
 			graphic.destroy();
 		}
 		_cachedGraphics.clear();
-		_cachedGraphics = null;
 	}
 }
