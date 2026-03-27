@@ -7,33 +7,33 @@ local charToNoteTypeMap = {
 function onCreatePost()
     triggerEvent('createCharacter', 'bluematt', '')
 
-    setProperty('dad.y', getProperty('dad.y')-60)
-    setProperty('dad.x', getProperty('dad.x')+80)
+    setProperty('dad.y', getProperty('dad.y')-75)
     setSpriteShader('bluematt', 'lightingEffects')
 
     setObjectOrder('bluematt', getObjectOrder('dadGroup')+1)
 
     for i = 0, getProperty('unspawnNotes.length')-1 do
+        local noteType = getPropertyFromGroup('unspawnNotes', i, 'noteType')
+        
         for j = 0, #characterList-1 do
-            if string.find(getPropertyFromGroup('unspawnNotes', i, 'noteType'), getCharNoteType(characterList[j+1])) 
-                and not string.find(getPropertyFromGroup('unspawnNotes', i, 'noteType'), "-duet") then 
+            if noteType == getCharNoteType(characterList[j+1]) then 
                 setPropertyFromGroup('unspawnNotes', i, 'noAnimation', true)
             end
         end
     end
 
+    --callMethod('iconP2.changeIcon', {"icon-rshaggyxbmatt"})
     generateIcon('iconP3', getProperty('bluematt.healthIcon'), false)
-    setProperty('iconP2.x', getProperty('iconP2.x')-25)
-    setProperty('iconP2.y', getProperty('iconP2.y')-25)
-    setProperty('iconP3.x', getProperty('iconP2.x')+50)
-    setProperty('iconP3.y', getProperty('iconP2.y')+50)
+    setProperty('iconP2.x', getProperty('iconP2.x')-35)
+    setProperty('iconP2.y', getProperty('iconP2.y')-35)
+    setProperty('iconP3.x', getProperty('iconP2.x')+70)
+    setProperty('iconP3.y', getProperty('iconP2.y')+70)
 
     setProperty('iconP3.alpha', getProperty('iconP2.alpha'))
     setProperty('iconP3.visible', getProperty('iconP2.visible'))
 
-    --callMethod('iconP2.changeIcon', {"icon-mattxbmatt"})
     local camOffset = getProperty('opponentCameraOffset')
-    camOffset[2] = camOffset[2] + 0
+    camOffset[2] = camOffset[2] + 100
     setProperty('opponentCameraOffset', camOffset)
 end
 
@@ -43,8 +43,8 @@ function generateIcon(name, icon, isPlayer)
 end
 
 function onUpdatePost()
-    setProperty('bluematt.x', getProperty('dad.x')-130)
-    setProperty('bluematt.y', getProperty('dad.y')+60)
+    setProperty('bluematt.x', getProperty('dad.x')-70)
+    setProperty('bluematt.y', getProperty('dad.y')-250)
 
     setProperty('iconP3.animation.curAnim.curFrame', getProperty('iconP2.animation.curAnim.curFrame'))
     setProperty('iconP3.scale.x', getProperty('iconP2.scale.x'))
@@ -96,7 +96,8 @@ local lastOpponentHitCharacter = 'hex'
 
 function opponentNoteHit(id, noteData, ntype, sus)
     for i = 0, #characterList-1 do 
-        if string.find(ntype, getCharNoteType(characterList[i+1])) then 
+        -- Verificação exata usando '=='
+        if ntype == getCharNoteType(characterList[i+1]) then 
             --runHaxeCode('game.variables["'..characterList[i+1]..'"].playAnim("'..singAnims[getSingAnim(noteData)]..'", true);')
 		    --runHaxeCode('game.variables["'..characterList[i+1]..'"].holdTimer = 0;')
             playAnim(characterList[i+1], singAnims[getMultikeyNoteIndex(noteData)+1], true)
@@ -105,9 +106,11 @@ function opponentNoteHit(id, noteData, ntype, sus)
         end
     end
 end
+
 function goodNoteHit(id, noteData, ntype, su)
     for i = 0, #characterList-1 do 
-        if string.find(ntype, getCharNoteType(characterList[i+1])) then 
+        -- Verificação exata usando '=='
+        if ntype == getCharNoteType(characterList[i+1]) then 
             playAnim(characterList[i+1], singAnims[getMultikeyNoteIndex(noteData)+1], true)
             setProperty(characterList[i+1]..'.holdTimer', 0)
             lastHitCharacter = characterList[i+1]
