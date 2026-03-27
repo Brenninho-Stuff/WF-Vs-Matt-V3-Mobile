@@ -96,7 +96,6 @@ local lastOpponentHitCharacter = 'hex'
 
 function opponentNoteHit(id, noteData, ntype, sus)
     for i = 0, #characterList-1 do 
-        -- Verificação exata usando '=='
         if ntype == getCharNoteType(characterList[i+1]) then 
             --runHaxeCode('game.variables["'..characterList[i+1]..'"].playAnim("'..singAnims[getSingAnim(noteData)]..'", true);')
 		    --runHaxeCode('game.variables["'..characterList[i+1]..'"].holdTimer = 0;')
@@ -109,7 +108,6 @@ end
 
 function goodNoteHit(id, noteData, ntype, su)
     for i = 0, #characterList-1 do 
-        -- Verificação exata usando '=='
         if ntype == getCharNoteType(characterList[i+1]) then 
             playAnim(characterList[i+1], singAnims[getMultikeyNoteIndex(noteData)+1], true)
             setProperty(characterList[i+1]..'.holdTimer', 0)
