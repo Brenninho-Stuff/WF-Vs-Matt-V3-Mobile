@@ -31,7 +31,7 @@
 		<define name="TITLE_SCREEN_EASTER_EGG"/>
 	</section>
 
-	<define name="VIDEOS_ALLOWED" if="windows || linux  || mobile || mac" unless="32bits"/> <!-- IF YOU WANT TO USE VIDEOS ON YOUR SOURCE MOD, GET THIS LINE OUTSIDE OF THE SECTION -->
+	<define name="VIDEOS_ALLOWED" if="windows || linux || mobile || mac" unless="32bits"/> <!-- IF YOU WANT TO USE VIDEOS ON YOUR SOURCE MOD, GET THIS LINE OUTSIDE OF THE SECTION -->
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
@@ -45,7 +45,7 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
 
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true"  resizable="false"/>
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false"/>
 
 	<!--Switch-specific-->
 	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
@@ -57,6 +57,7 @@
 	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
 
 	<classpath name="source" />
+
 	<!-- __________________________ Game Assets & Etc. __________________________ -->
 	
 	<!-- Turn on Crash Handler -->
@@ -74,11 +75,11 @@
 	<assets path="assets/week_assets"   library="week_assets"   rename="assets" exclude="*.mp3" unless="web"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets/shared" exclude="*.ogg" if="web"/>
-		<assets path="assets/secrets" rename="assets/shared" exclude="*.mp3"  unless="web"/>
+		<assets path="assets/secrets" rename="assets/shared" exclude="*.mp3" unless="web"/>
 	</section>
 
 	<assets path="assets/embedShared" rename="assets/shared" embed="true"/>
-	<assets path="assets/embed" rename="assets" embed="truee"/>
+	<assets path="assets/embed" rename="assets" embed="true"/>
 	<assets path="assets/embedSongs" library="songs" rename="assets/songs" embed="true"/>
 
 	<assets path='alsoft.ini' if='desktop'/>
@@ -102,13 +103,20 @@
 	<haxelib name="tjson" />
 
 	<!--Psych stuff needed-->
-	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
+	<section if="desktop || mobile">
+		<haxelib name="linc_luajit"/>
+	</section>
 	<haxedef name="SScript" if="HSCRIPT_ALLOWED"/>
-	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
-	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
+	<section if="VIDEOS_ALLOWED">
+		<haxelib name="hxvlc"/>
+	</section>
+	<section if="DISCORD_ALLOWED">
+		<haxelib name="hxdiscord_rpc"/>
+	</section>
 	<haxelib name="flxanimate"/>
 	<haxelib name="grig.audio" />
 	<haxelib name="funkin.vis" />
+
 	<!-- Disable Discord IO Thread -->
 	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc" />
 	<haxedef name="NO_PRECOMPILED_HEADERS" if="linux" />
@@ -118,7 +126,7 @@
 	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
 	
 	<!-- Mobile Shit -->
-    <section if="android">
+	<section if="android">
 		<config:android permission="android.permission.VIBRATE" />
 		<config:android permission="android.permission.INTERNET" />
 		<config:android permission="android.permission.ACCESS_WIFI_STATE"/>
@@ -127,10 +135,10 @@
 		<android target-sdk-version="34" />
 		<android min-sdk-version="19" />
 		<certificate path="key.keystore" password="psychport" alias="psychport" alias-password="psychport" unless="test" />
-    </section>
+	</section>
     
-    <!-- IOS stuff -->
-    <section if="ios">
+	<!-- IOS stuff -->
+	<section if="ios">
 		<config:ios category_type="public.app-category.music-games" />
 		<config:mac category_type="public.app-category.music-games" />
 	</section>
